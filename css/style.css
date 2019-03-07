@@ -136,7 +136,7 @@ header {
 }
 
 .banner-text-w3-agileits h5 {
-	color: #fff;
+	color: rgb(0, 0, 200);
 	font-size: 1.7em;
 	letter-spacing: 3px;
 	font-weight: 400;
@@ -359,13 +359,13 @@ nav.shift ul li a:hover:after {
 /*-- //header --*/
 
 .banner {
-	background: url(../images/banner.jpg)no-repeat 0px 0px;
+	background: url(../images/banner2.JPG)no-repeat 0px 0px;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	-ms-background-size: cover;
 	background-size: cover;
-	min-height: 795px;
+	min-height: 1000px;
 	position: relative;
 }
 
@@ -1072,7 +1072,7 @@ h3.subheading-agileits-w3layouts {
 /*-- gallery --*/
 
 .agile_gallery_grid {
-	margin-top: 2em;
+	margin-top: 3em;
 }
 
 .agile_gallery_grid:nth-child(1) {
