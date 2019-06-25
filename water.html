@@ -1,0 +1,165 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>水钟-jq22.com</title>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<style>
+html, body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #101010;
+}
+.container{
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px;
+    margin-left: -250px;
+}
+canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+}</style>
+</head>
+<body>
+<div id="jsi-clock-container" class="container"></div>
+
+<script>
+var RENDERER = {
+	PARTICLE_INIT_COUNT : 500,
+	PARTICLE_DELTA_COUNT : 10,
+	BASE_HUE : 240,
+	OFFSET_HUE : 20,
+	DELTA_THETA : Math.PI / 300,
+	
+	init : function(){
+		this.setParameters();
+		this.reconstructMethods();
+		this.createParticles(this.PARTICLE_INIT_COUNT, true);
+		this.render();
+	},
+	setParameters : function(){
+		this.$window = $(window);
+		this.$container = $('#jsi-clock-container');
+		this.width = this.$container.width();
+		this.height = this.$container.height();
+		this.foregroundContext = $('<canvas />').attr({width : this.width, height : this.height}).appendTo(this.$container).get(0).getContext('2d');
+		this.backgroundContext = $('<canvas />').attr({width : this.width, height : this.height}).appendTo(this.$container).get(0).getContext('2d');
+		this.particles = [];
+		this.radius = Math.min(this.width / 2, this.height / 2) * 1.2;
+		this.top = this.height / 2 - this.radius;
+		this.bottom = this.top + this.radius * 2;
+		this.left = this.width / 2 - this.radius;
+		this.right = this.left + this.radius * 2;
+		this.theta = 0;
+		this.gradient = this.backgroundContext.createRadialGradient(this.width / 2, this.height / 2, 0, this.width / 2, this.height / 2, this.radius);
+		this.gradient.addColorStop(0, 'hsla(0, 0%, 0%, 1)');
+		this.gradient.addColorStop(1, 'hsla(0, 0%, 0%, 0)');
+	},
+	reconstructMethods : function(){
+		this.render = this.render.bind(this);
+	},
+	createParticles : function(count, randomized){
+		for(var i = 0; i < count; i++){
+			this.particles.push(new PARTICLE(this, randomized));
+		}
+	},
+	padding : function(data){
+		return (data < 10 ? '0' : '') + data;
+	},
+	render : function(){
+		requestAnimationFrame(this.render);
+		
+		var hue = this.BASE_HUE + this.OFFSET_HUE * Math.sin(this.theta),
+			date = new Date();
+		
+		this.backgroundContext.save();
+		this.backgroundContext.fillStyle = 'hsl(' + hue + ', 100%, 30%)';
+		this.backgroundContext.fillRect(0, 0, this.width, this.height);
+		this.backgroundContext.globalCompositeOperation = 'destination-out';
+		this.backgroundContext.fillStyle = this.gradient;
+		this.backgroundContext.beginPath();
+		this.backgroundContext.arc(this.width / 2, this.height / 2, this.radius, 0, Math.PI * 2, false);
+		this.backgroundContext.fill();
+		this.backgroundContext.restore();
+		
+		this.foregroundContext.save();
+		this.foregroundContext.fillStyle = 'hsla(' + hue + ', 100%, 30%, 0.1)';
+		this.foregroundContext.fillRect(0, 0, this.width, this.height);
+		this.foregroundContext.globalCompositeOperation = 'lighter';
+		
+		for(var i = this.particles.length - 1; i >= 0; i--){
+			if(!this.particles[i].render(this.foregroundContext, hue)){
+				this.particles.splice(i, 1);
+			}
+		}
+		this.foregroundContext.font = '120px "ＭＳ Ｐゴシック"';
+		this.foregroundContext.textAlign = 'center';
+		this.foregroundContext.textBaseline = 'middle';
+		this.foregroundContext.shadowColor = 'hsl(' + hue + ', 20%, 15%)';
+		this.foregroundContext.shadowBlur = 12;
+		this.foregroundContext.shadowOffsetY = this.height;
+		this.foregroundContext.fillStyle = 'hsl(' + hue + ', 20%, 0%)';
+		this.foregroundContext.fillText(this.padding(date.getHours()) + ':' + this.padding(date.getMinutes()) + ':' + this.padding(date.getSeconds()), this.width / 2, -this.height / 2);
+		this.foregroundContext.restore();
+		this.createParticles(this.PARTICLE_DELTA_COUNT, false);
+		
+		this.theta += this.DELTA_THETA;
+		this.theta %= Math.PI * 2;
+	}
+};
+var PARTICLE = function(renderer, randomized){
+	this.renderer = renderer;
+	this.init();
+	this.randomizePosition(randomized);
+};
+PARTICLE.prototype = {
+	GRAVITY : 0.05,
+	
+	init : function(randomized){
+		this.width = this.getRandomValue(this.renderer.width / 100, this.renderer.width / 50);
+		this.height = this.getRandomValue(this.renderer.height / 10, this.renderer.height / 5);
+		this.x = this.getRandomValue(this.renderer.left, this.renderer.right) - this.width / 2;
+		this.y = this.renderer.top - this.height;
+		this.vy = this.getRandomValue(1, 2);
+	},
+	getRandomValue : function(min, max){
+		return min + (max - min) * Math.random();
+	},
+	randomizePosition : function(randomized){
+		if(!randomized){
+			return;
+		}
+		for(var i = 0, count = this.getRandomValue(0, 100) | 0; i < count; i++){
+			this.y += this.vy;
+			this.vy += this.GRAVITY;
+		}
+	},
+	render : function(context, hue){
+		context.save();
+		context.translate(this.x, this.y);
+		context.beginPath();
+		context.lineWidth = this.width;
+		context.strokeStyle = 'hsl(' + hue + ', 30%, 2%)';
+		context.moveTo(0, 0);
+		context.lineTo(0, this.height);
+		context.stroke();
+		context.restore();
+		this.y += this.vy;
+		this.vy += this.GRAVITY;
+		return this.y <= this.renderer.bottom;
+	}
+};
+$(function(){
+	RENDERER.init();
+});</script>
+
+</body>
+</html>

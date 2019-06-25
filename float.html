@@ -1,0 +1,83 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>导航鼠标悬停下滑线跟随-jq22.com</title>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<style>
+body {
+	min-height: 90vh;
+	display: grid;
+	place-items: center; background-color: #353535;
+}
+
+
+nav {
+	position: relative;
+	display: flex;
+	border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+nav a {
+	display: inline-block;
+	padding: 1rem;
+	text-decoration: none;
+	color: rgba(255,255,255,0.6);
+	transition: .2s;
+}
+
+nav a:hover {
+    color: #44E3FD;
+}
+
+nav::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 4px;
+	background: red;
+	transform: translateX(var(--barLeft, 0));
+	width: var(--barWidth, 0);
+	transition: .2s;
+	pointer-events: none;
+}</style>
+</head>
+<body>
+<nav>
+	<a href="#">About</a>
+	<a href="#">Portfolio</a>
+	<a href="#">Contact us</a>
+	<a href="#" class="current">Current page</a>
+	<a href="#">Twitter</a>
+</nav>
+
+<script>
+const setCssProps = (left, width, container) => {
+	container.style.setProperty('--barLeft', `${left}px`)
+	container.style.setProperty('--barWidth', `${width}px`)
+}
+
+let currentLeft
+let currentWidth
+
+[...document.querySelector('nav').children].forEach(item => {
+	
+	if (item.classList.contains("current")) {
+		currentLeft = item.offsetLeft
+		currentWidth = item.offsetWidth
+		setCssProps(currentLeft, currentWidth, item.parentNode)
+	}
+	
+	item.addEventListener('mouseenter', event => {
+		setCssProps(event.target.offsetLeft, event.target.offsetWidth, item.parentNode)
+	})
+	
+	item.addEventListener('mouseleave', event => {
+		setCssProps(currentLeft, currentWidth, item.parentNode)
+	})
+	
+})</script>
+
+</body>
+</html>
