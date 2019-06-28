@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="" />
+	<script type="text/javascript" src="js/pdfobject.js"></script>
 	<script type="application/x-javascript">
 		addEventListener("load", function () {
 			setTimeout(hideURLbar, 0);
@@ -16,6 +17,9 @@
 			window.scrollTo(0, 1);
 		}
 	</script>
+
+	
+	
 	<!-- //Meta Tags -->
 	<!-- Style Sheets -->
 	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
@@ -37,7 +41,7 @@
 				<div class="header-bottom-agileits" id='large-header'>
 					<canvas id="demo-canvas"></canvas>
 					<div class="w3-logo">
-						<h1><a href="index.html">Personal Portfolio<span class="sub-logo">Portfolio</span></a></h1>
+						<h1><a href="index.html">Personal Portfolio<span class="sub-logo">Personal Portfolio</span></a></h1>
 					</div>
 					<!-- navigation -->
 					<nav class="navbar navbar-default shift">
@@ -140,6 +144,7 @@
 					<div class="pos-w3ls">
 						<h4><span class="red-w3ls">Get</span> in touch</h4>
 						<div class="button-w3layouts"><a href="#contact" class="scroll">Contact Me</a></div>
+						<div class="button-w3layouts"><a class="resume">My Resume </a></div>
 					</div>
 				</div>
 				<div class="clearfix"> </div>
@@ -355,8 +360,7 @@
 	<div class="gallery" id="portfolio">
 		<div class="container">
 			<div class="title-wthree">
-				<h5 class="title-w3"><span>07</span>Project Experiences</h5>
-				<h4 class="title-w3">Front-End-Project</h4>
+				<h5 class="title-w3"><span>07</span>Front-Project</h5>
 				<div class="clearfix"></div>
 			</div>
 			<div class="w3ls_gallery_grids">
@@ -364,7 +368,7 @@
 					<div class="agile_gallery_grid">
 						<a title="Donec sapien massa, placerat ac sodales ac, feugiat quis est." href="images/1.jpg">
 							<div class="agile_gallery_grid1">
-							<iframe src="clock.html" mce_src="clock.html" width=360 height=280>
+							<iframe src="clock.html" mce_src="clock.html" width=360 height=300>
 							</iframe>
 							</div>
 						</a>
@@ -372,7 +376,7 @@
 					<div class="agile_gallery_grid">
 						<a title="Donec sapien massa, placerat ac sodales ac, feugiat quis est." href="images/2.jpg">
 							<div class="agile_gallery_grid1">
-								<iframe src="rotate.html" mce_src="rotate.html" width=360 height=280>
+								<iframe src="rotate.html" mce_src="rotate.html" width=360 height=300>
 								</iframe>
 							</div>
 						</a>
@@ -380,7 +384,7 @@
 					<div class="agile_gallery_grid">
 						<a title="Donec sapien massa, placerat ac sodales ac, feugiat quis est." href="images/3.jpg">
 							<div class="agile_gallery_grid1">
-							  <iframe src="rain.html" mce_src="rain.html" width=360 height=280>
+							  <iframe src="rain.html" mce_src="rain.html" width=360 height=300>
 								</iframe>
 							</div>
 						</a>
@@ -390,7 +394,7 @@
 					<div class="agile_gallery_grid">
 						<a title="Donec sapien massa, placerat ac sodales ac, feugiat quis est." href="images/4.jpg">
 							<div class="agile_gallery_grid1">
-								<iframe src="drive.html" mce_src="drive.html" width=360 height=280>
+								<iframe src="drive.html" mce_src="drive.html" width=360 height=300>
 								</iframe>
 							</div>
 						</a>
@@ -398,7 +402,7 @@
 					<div class="agile_gallery_grid">
 						<a title="Donec sapien massa, placerat ac sodales ac, feugiat quis est." href="images/5.jpg">
 							<div class="agile_gallery_grid1">
-								<iframe src="crossStreet.html" mce_src="crossStreet.html" width=360 height=280>
+								<iframe src="crossStreet.html" mce_src="crossStreet.html" width=360 height=300>
 								</iframe>
 							</div>
 						</a>
@@ -416,7 +420,7 @@
 					<div class="agile_gallery_grid">
 						<a title="Donec sapien massa, placerat ac sodales ac, feugiat quis est." href="images/7.jpg">
 							<div class="agile_gallery_grid1">
-								<iframe src="button.html" mce_src="button.html" width=360 height=280>
+								<iframe src="button.html" mce_src="button.html" width=360 height=300>
 								</iframe>
 							</div>
 						</a>
@@ -424,7 +428,7 @@
 					<div class="agile_gallery_grid">
 						<a title="Donec sapien massa, placerat ac sodales ac, feugiat quis est." href="images/8.jpg">
 							<div class="agile_gallery_grid1">
-								<iframe src="float.html" mce_src="float.html" width=360 height=280>
+								<iframe src="float.html" mce_src="float.html" width=360 height=300>
 								</iframe>
 							</div>
 						</a>
@@ -432,7 +436,7 @@
 					<div class="agile_gallery_grid">
 						<a title="Donec sapien massa, placerat ac sodales ac, feugiat quis est." href="images/9.jpg">
 							<div class="agile_gallery_grid1">
-							  <iframe src="select.html" mce_src="select.html" width=360 height=280>
+							  <iframe src="select.html" mce_src="select.html" width=360 height=300>
 								</iframe>
 							</div>
 						</a>
@@ -550,25 +554,29 @@
 			});
 		});
 	</script>
+
+	<script type="text/javascript">
+	    jQuery(document).ready(function ($) {
+			$(".resume").click(function (event) {
+				event.preventDefault();
+				var myPDF = new PDFObject({ url: "sample.pdf" }).embed();
+			});
+		});
+       
+                
+    </script>
+	
 	<!-- start-smoth-scrolling -->
 	<!-- here stars scrolling icon -->
 	<script type="text/javascript">
 		$(document).ready(function () {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-				};
-			*/
-
 			$().UItoTop({
 				easingType: 'easeOutQuart'
 			});
 
 		});
 	</script>
+
 	<script src="js/demo-2.js"></script>
 	
 	<!-- //here ends scrolling icon -->

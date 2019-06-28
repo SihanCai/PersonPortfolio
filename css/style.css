@@ -526,7 +526,9 @@ h5.title-w3 span {
 	-ms-transition: 0.5s ease-in;
 	-o-transition: 0.5s ease-in;
 	border-radius: 0px;
+	margin-left: 1em;
 }
+
 
 .button-w3layouts a:hover {
 	background: #5c55d2;
@@ -550,6 +552,7 @@ h3.subheading-agileits-w3layouts {
 
 .pos-w3ls {
 	margin-top: 2em;
+	display: flex;
 }
 
 .pos-w3ls h4 {
