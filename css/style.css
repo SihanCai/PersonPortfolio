@@ -57,7 +57,7 @@ label {
 
 .w3-logo {
 	float: left;
-	line-height: 5px;
+	line-height: 10px;
 	position: relative;
 	z-index: 999;
 }
@@ -77,10 +77,10 @@ label {
 
 .w3-logo a {
 	color: #ffffff;
-	font-size: 1.1em;
+	font-size: 1.5em;
 	text-decoration: none;
 	text-transform: capitalize;
-	font-weight: 600;
+	font-weight: 1000;
 	letter-spacing: 4px;
 	/* width: 235px; */
 	display: block;
@@ -308,17 +308,17 @@ nav.shift ul li a:hover:after {
 }
 
 .navbar-default .navbar-nav>li>a {
-	font-size: 13px!important;
-	letter-spacing: 1.5px;
-	color: #fff!important;
+	font-size: 15px!important;
+	letter-spacing: 0.5px;
+	color: #ffffff!important;
 	background: transparent;
 	padding: 8px 15px;
-	font-weight: 600;
+	font-weight: 1000;
 }
 
 .navbar-nav>li {
 	float: left;
-	margin: 0 22px;
+	margin: 0 40px;
 }
 
 .navbar-nav>li:nth-child(5) {
